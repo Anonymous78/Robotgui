@@ -47,11 +47,11 @@ Page {
             fillMode: Image.PreserveAspectFit
             source: "assets/robot icon.png"
             NumberAnimation on y {
-                to: 370
+                id: anim
+                to: movement.ycoord
                 duration: map.duration
                 running: map.running
             }
-            onClicked: y = 38
         }
         MouseArea {
             anchors.fill: parent

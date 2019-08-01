@@ -34,10 +34,9 @@ Page {
         source: "assets/map.png"
         fillMode: Image.PreserveAspectFit
         property int duration: 4000
-        property bool running: false
 
         Image {
-            id: image1
+            id: robotIcon
             x: 231
             y: 38
             width: 51
@@ -45,17 +44,25 @@ Page {
             anchors.right: parent.right
             anchors.rightMargin: 8
             fillMode: Image.PreserveAspectFit
-            source: "assets/robot icon.png"
-            NumberAnimation on y {
-                id: anim
-                to: movement.ycoord
-                duration: map.duration
-                running: map.running
-            }
+            source: "assets/robot icon.png"            
         }
+
+       SequentialAnimation {
+           id: animateMovement
+           PathAnimation {
+                anchorPoint: Qt.point(robotIcon.width/2, robotIcon.height/2)
+                path: Path {
+                    PathCurve { x: 231; y: 385}
+                    PathCurve { x: 231; y: 38}
+                }
+                target: robotIcon
+                duration: map.duration
+            }
+       }
+
         MouseArea {
             anchors.fill: parent
-            onClicked: map.running = true
+            onClicked: animateMovement.start()
         }
     }
 
